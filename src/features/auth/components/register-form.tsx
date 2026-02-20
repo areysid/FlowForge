@@ -40,10 +40,10 @@ export function RegisterForm() {
     const onSubmit = async (values: RegisterFormVlaues) => {
         await authClient.signUp.email(
             {
-            name: values.email,
-            email: values.email,
-            password: values.password,
-            callbackURL: "/",
+                name: values.email,
+                email: values.email,
+                password: values.password,
+                callbackURL: "/",
             },
             {
                 onSuccess: () => {
@@ -53,7 +53,7 @@ export function RegisterForm() {
                     toast.error(ctx.error.message);
                 }
             }
-    )
+        )
     }
 
     const isPending = form.formState.isSubmitting;
@@ -65,69 +65,71 @@ export function RegisterForm() {
                     <CardTitle>
                         Get Started!
                     </CardTitle>
-                <CardDescription>    
-                    Create your account to get started
-                </CardDescription>
-            </CardHeader>
-            <CardContent>
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)}>
-                        <div className="grid gap-6">
-                            <div className="flex flex-col gap-4">
-                                <Button variant="outline" className="w-full" type="button" disabled={isPending}>
-                                    Continue with GitHub
-                                </Button>
-                                <Button variant="outline" className="w-full" type="button" disabled={isPending}>
-                                    Continue with Google
-                                </Button>
-                            </div>
+                    <CardDescription>
+                        Create your account to get started
+                    </CardDescription>
+                </CardHeader>
+                <CardContent>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)}>
                             <div className="grid gap-6">
-                                <FormField control={form.control} name="email" render ={({field}) => (
-                                    <FormItem>
-                                        <FormLabel>Email</FormLabel>
-                                        <FormControl>
-                                        <Input type="email" placeholder="example@mail.com" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                                />
-                                <FormField control={form.control} name="password" render ={({field}) => (
-                                    <FormItem>
-                                        <FormLabel>Password</FormLabel>
-                                        <FormControl>
-                                        <Input type="password" placeholder="********" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                                />
-                                <FormField control={form.control} name="confirmPassword" render ={({field}) => (
-                                    <FormItem>
-                                        <FormLabel>Confirm Password</FormLabel>
-                                        <FormControl>
-                                        <Input type="password" placeholder="********" {...field} />
-                                        </FormControl>
-                                        <FormMessage />
-                                    </FormItem>
-                                )}
-                                />
-                                <Button type="submit" className="w-full" disabled={isPending}>
-                                    Sign Up
-                                </Button>
+                                <div className="flex flex-col gap-4">
+                                    <Button variant="outline" className="w-full" type="button" disabled={isPending}>
+                                        <Image alt="Git Hub" src="/logos/github.svg" width={20} height={20} />
+                                        Continue with GitHub
+                                    </Button>
+                                    <Button variant="outline" className="w-full" type="button" disabled={isPending}>
+                                        <Image alt="Google" src="/logos/google.svg" width={20} height={20} />
+                                        Continue with Google
+                                    </Button>
+                                </div>
+                                <div className="grid gap-6">
+                                    <FormField control={form.control} name="email" render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Email</FormLabel>
+                                            <FormControl>
+                                                <Input type="email" placeholder="example@mail.com" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                    />
+                                    <FormField control={form.control} name="password" render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Password</FormLabel>
+                                            <FormControl>
+                                                <Input type="password" placeholder="********" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                    />
+                                    <FormField control={form.control} name="confirmPassword" render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel>Confirm Password</FormLabel>
+                                            <FormControl>
+                                                <Input type="password" placeholder="********" {...field} />
+                                            </FormControl>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                    />
+                                    <Button type="submit" className="w-full" disabled={isPending}>
+                                        Sign Up
+                                    </Button>
+                                </div>
+                                <div className="text-center text-sm">
+                                    Already have an account? {" "}
+                                    <Link href="/login"
+                                        className="underline underline-offset-4">
+                                        Login
+                                    </Link>
+                                </div>
                             </div>
-                            <div className="text-center text-sm">
-                                Already have an account? {" "}
-                                <Link href="/login"
-                                className="underline underline-offset-4">
-                                    Login
-                                </Link>
-                            </div>
-                        </div>
-                    </form>
-                </Form>
-            </CardContent>
-        </Card>
+                        </form>
+                    </Form>
+                </CardContent>
+            </Card>
         </div >
     )
 }
