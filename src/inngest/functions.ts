@@ -1,20 +1,48 @@
 import prisma from "@/lib/db";
 import { inngest } from "./client";
+import {createAnthropic} from "@ai-sdk/anthropic"
+import {createOpenAI} from "@ai-sdk/openai"
+import {createGoogleGenerativeAI} from "@ai-sdk/google"
+import { generateText } from "ai";
 
-export const helloWorld = inngest.createFunction(
-    { id: "hello-world" },
-    { event: "test/hello.world" },
+const anthropic = createAnthropic();
+const openai = createOpenAI();
+const google = createGoogleGenerativeAI();
+
+export const execute = inngest.createFunction(
+    { id: "execute-ai" },
+    { event: "execute/ai" },
     async ({ event, step }) => {
-        await step.sleep("wait-a-moment-1", "5s");
-        await step.sleep("wait-a-moment-2", "5s");
-        await step.sleep("wait-a-moment-3", "5s");
-        // return { message: `Hello ${event.data.email}!` };
-        await step.run("create-workflow", () => {
-            return prisma.workflow.create({
-                data: {
-                    name: "workflow-from-inngest",
-                },
-            });
-        });
+        await step.sleep("pretend", "5s")
+
+        const { steps: anthropicsteps } = await step.ai.wrap("anthropic-generate-text",
+            generateText, 
+            {
+                model: anthropic("claude-sonnet-4-5"),
+                system: "You are a helpful assistant.",
+                prompt: "What is greater than 8 but less than 10?",
+            }
+        );
+        const { steps: googlesteps } = await step.ai.wrap("google-generate-text",
+            generateText, 
+            {
+                model: google("gemini-2.5-flash"),
+                system: "You are a helpful assistant.",
+                prompt: "What is greater than 8 but less than 10?",
+            }
+        );
+        const { steps: openaisteps } = await step.ai.wrap("openai-generate-text",
+            generateText, 
+            {
+                model: openai("gpt-4.1-mini"),
+                system: "You are a helpful assistant.",
+                prompt: "What is greater than 8 but less than 10?",
+            }
+        );
+        return{
+            anthropicsteps,
+            googlesteps,
+            openaisteps
+        };
     },
 );
