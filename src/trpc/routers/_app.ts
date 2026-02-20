@@ -1,8 +1,20 @@
 
 import { inngest } from '@/inngest/client';
-import { createTRPCRouter, protectedProcedure } from '../init';
+import { baseProcedure, createTRPCRouter, protectedProcedure } from '../init';
 import prisma from '@/lib/db';
+import { anthropic } from '@ai-sdk/anthropic';
+import { generateText } from 'ai';
+
+
 export const appRouter = createTRPCRouter({
+
+   testAi: baseProcedure.mutation(async () => {
+      await inngest.send({
+         name: "execute/ai",
+      })
+      return { success: true, message: "Job Queued" }
+   }),
+
    getWorkflows: protectedProcedure.query(({ ctx }) => {
       return prisma.workflow.findMany();
    }),
@@ -14,8 +26,9 @@ export const appRouter = createTRPCRouter({
             email: "Sidharthmalpani@gmail.com"
          },
       })
-      return { success: true, message: "Job Queued"}
+      return { success: true, message: "Job Queued" }
    }),
 });
 // export type definition of API
 export type AppRouter = typeof appRouter;
+
