@@ -1,8 +1,8 @@
 import prisma from "@/lib/db";
 import { inngest } from "./client";
-import {createAnthropic} from "@ai-sdk/anthropic"
-import {createOpenAI} from "@ai-sdk/openai"
-import {createGoogleGenerativeAI} from "@ai-sdk/google"
+import { createAnthropic } from "@ai-sdk/anthropic"
+import { createOpenAI } from "@ai-sdk/openai"
+import { createGoogleGenerativeAI } from "@ai-sdk/google"
 import { generateText } from "ai";
 
 const anthropic = createAnthropic();
@@ -16,30 +16,45 @@ export const execute = inngest.createFunction(
         await step.sleep("pretend", "5s")
 
         const { steps: anthropicsteps } = await step.ai.wrap("anthropic-generate-text",
-            generateText, 
+            generateText,
             {
                 model: anthropic("claude-sonnet-4-5"),
                 system: "You are a helpful assistant.",
                 prompt: "What is greater than 8 but less than 10?",
+                experimental_telemetry: {
+                    isEnabled: true,
+                    recordInputs: true,
+                    recordOutputs: true,
+                },
             }
         );
         const { steps: googlesteps } = await step.ai.wrap("google-generate-text",
-            generateText, 
+            generateText,
             {
                 model: google("gemini-2.5-flash"),
                 system: "You are a helpful assistant.",
                 prompt: "What is greater than 8 but less than 10?",
+                experimental_telemetry: {
+                    isEnabled: true,
+                    recordInputs: true,
+                    recordOutputs: true,
+                },
             }
         );
         const { steps: openaisteps } = await step.ai.wrap("openai-generate-text",
-            generateText, 
+            generateText,
             {
                 model: openai("gpt-4.1-mini"),
                 system: "You are a helpful assistant.",
                 prompt: "What is greater than 8 but less than 10?",
+                experimental_telemetry: {
+                    isEnabled: true,
+                    recordInputs: true,
+                    recordOutputs: true,
+                },
             }
         );
-        return{
+        return {
             anthropicsteps,
             googlesteps,
             openaisteps
