@@ -4,11 +4,13 @@ import { baseProcedure, createTRPCRouter, protectedProcedure } from '../init';
 import prisma from '@/lib/db';
 import { anthropic } from '@ai-sdk/anthropic';
 import { generateText } from 'ai';
+import { TRPCError } from '@trpc/server';
 
 
 export const appRouter = createTRPCRouter({
 
    testAi: baseProcedure.mutation(async () => {
+
       await inngest.send({
          name: "execute/ai",
       })

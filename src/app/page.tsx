@@ -23,6 +23,9 @@ const Page = () => {
   const create = useMutation(trpc.createWorkflow.mutationOptions({
     onSuccess: () => {
       toast.success("Job Queued");
+    },
+    onError: () => {
+      toast.error("Something went wrong")
     }
   }));
 
