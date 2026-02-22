@@ -23,6 +23,7 @@ import {
     SidebarMenuItem
 } from "@/components/ui/sidebar";
 import { authClient } from "@/lib/auth-client";
+import { useHasActiveSubcription } from "@/features/subscriptions/hooks/use-subscription";
 
 const menuItems = [
     {
@@ -51,6 +52,7 @@ export const AppSidebar = () => {
 
     const router = useRouter();
     const pathname = usePathname();
+    const { hasActiveSubcription, isLoading } = useHasActiveSubcription();
     return (
         <Sidebar collapsible="icon">
             <SidebarHeader>
@@ -94,21 +96,23 @@ export const AppSidebar = () => {
             </SidebarContent>
             <SidebarFooter>
                 <SidebarMenu>
+                    {!hasActiveSubcription && !isLoading && (
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             tooltip="Upgrade to Pro"
                             className="gap-x-4 h-10 px-4"
-                            onClick={() => { }}
+                            onClick={() => authClient.checkout({ slug: "FlowForge-Pro"}) }
                         >
                             <StarIcon className="h-4 w-4" />
                             Upgrade to Pro
                         </SidebarMenuButton>
                     </SidebarMenuItem>
+                    )}
                     <SidebarMenuItem>
                         <SidebarMenuButton
                             tooltip="Billing Portal"
                             className="gap-x-4 h-10 px-4"
-                            onClick={() => { }}
+                            onClick={() => authClient.customer.portal()}
                         >
                             <CreditCardIcon className="h-4 w-4" />
                             Billing Portal
