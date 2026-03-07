@@ -28,4 +28,4 @@ export const InitialNode = memo((props: NodeProps) => {
     )
 });
 
-InitialNode.displayName = "IntialNode";
+InitialNode.displayName = "InitialNode";
