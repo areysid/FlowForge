@@ -1,4 +1,6 @@
 import { Inngest } from "inngest";
-
-// Create a client to send and receive events
-export const inngest = new Inngest({ id: "FlowForge" });
+import {realtimeMiddleware} from "@inngest/realtime/middleware";
+export const inngest = new Inngest({ 
+    id: "FlowForge",
+    middleware: [realtimeMiddleware()], 
+});
