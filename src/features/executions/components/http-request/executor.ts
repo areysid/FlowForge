@@ -65,8 +65,17 @@ export const httpRequestExecutor: NodeExecutor<HttpRequestData> = async({
 
     try{
     const result = await step.run("http-request", async ()=>{
+
         const endpoint = Handlebars.compile(data.endpoint)(context);
+
         console.log("ENDPOINT ", {endpoint});
+        
+        if (!endpoint || endpoint.trim() === "") {
+        // Log the full context only when it fails so you can inspect the structure
+        console.error("Handlebars failed to resolve. Context structure:", JSON.stringify(context, null, 2));
+        throw new NonRetriableError(`Endpoint resolved to empty string. Check if {{${data.endpoint}}} matches your data structure.`);
+    }
+
         const method = data.method || "GET";
 
         const options: KyOptions= {method};
