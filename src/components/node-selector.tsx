@@ -38,11 +38,23 @@ const triggerNodes: NodeTypeOption[] = [
 ];
 
 const executionNodes: NodeTypeOption[] = [
-    {
+     {
         type: NodeType.HTTP_REQUEST,
         label: "HTTP Request",
         description: "Makes and HTTP request",
         icon: GlobeIcon,
+    },
+    {
+        type: NodeType.GEMINI,
+        label: "Gemini",
+        description: "Uses Google Gemini to generate text",
+        icon: "/logos/gemini.svg",
+    },
+    {
+        type: NodeType.ANTHROPIC,
+        label: "Anthropic",
+        description: "Uses Anthropic to generate text",
+        icon: "/logos/anthropic.svg",
     },
 ];
 

@@ -26,3 +26,5 @@ ERROR [portable_pty::win::psuedocon] CreateProcessW `"\"C:\\Program Files\\nodej
 ERROR [lib::mprocs] Got panic. @info:panicked at src\vt100\screen.rs:457:10:
 called `Option::unwrap()` on a `None` value
 @stackTrace:disabled backtrace
+ERROR [lib::error] Error: channel closed
+ERROR [lib::error] Error: channel closed
