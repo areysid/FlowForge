@@ -5,6 +5,7 @@ import { GoogleFormTriggerDialog } from "./dialog";
 import { useNodeStatus } from "@/features/executions/hooks/use-node-status";
 import { fetchGoogleFormTriggerRealtimeToken } from "./actions";
 import { GOOGLE_FORM_TRIGGER_CHANNEL_NAME } from "@/inngest/channels/google-form-trigger";
+import { GeminiNode } from "@/features/executions/components/gemini/node";
 
 export const GoogleFormTrigger = memo((props: NodeProps) => {
 
@@ -36,4 +37,6 @@ export const GoogleFormTrigger = memo((props: NodeProps) => {
         />
         </>
     )
-})
+});
+
+GeminiNode.displayName = "GeminiNode";
