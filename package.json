@@ -7,7 +7,7 @@
     "build": "next build --turbopack",
     "start": "next start",
     "lint": "biome check",
-    "ngrok:dev": "dotenv -- ngrok http --url=$NGROK_URL 3002",
+    "ngrok:dev": "dotenv -- ngrok http 3002",
     "format": "biome format --write",
     "inngest:dev": "inngest-cli dev",
     "dev:all": "dotenv -- mprocs"

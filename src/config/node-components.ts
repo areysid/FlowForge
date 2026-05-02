@@ -4,9 +4,9 @@ import { GoogleFormTrigger } from "@/features/triggers/components/google-form-tr
 import { ManualTriggerNode } from "@/features/triggers/components/manual-trigger/node";
 import { StripeTriggerNode } from "@/features/triggers/components/stripe-trigger/node";
 import { NodeType } from "@/generated/prisma/enums";
-import type { NodeTypes } from "@xyflow/react";
-import type { GeminiNode } from "@/features/executions/components/gemini/node";
-import type { AnthropicNode } from "@/features/executions/components/anthropic/node";
+import { NodeTypes } from "@xyflow/react";
+import { GeminiNode } from "@/features/executions/components/gemini/node";
+import { AnthropicNode } from "@/features/executions/components/anthropic/node";
 
 export const nodeComponents = {
     [NodeType.INITIAL]: InitialNode,
