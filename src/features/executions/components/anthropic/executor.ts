@@ -143,6 +143,7 @@ export const anthropicExecutor: NodeExecutor<AnthropicData> = async({
         anthropicChannel().status({
             nodeId,
             status: "error",
+            
         }),
     );
     throw error;
