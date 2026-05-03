@@ -6,6 +6,8 @@ import { googleFormTriggerExecutor } from "@/features/triggers/components/google
 import { stripeTriggerExecutor } from "@/features/triggers/components/stripe-trigger/executor";
 import { geminiExecutor } from "../components/gemini/executor";
 import { anthropicExecutor } from "../components/anthropic/executor";
+import { discordExecutor } from "../components/discord/executor";
+import { slackExecutor } from "../components/slack/executor";
 
 export const executorRegistry: Record<NodeType, NodeExecutor> = {
     [NodeType.MANUAL_TRIGGER]: manualTriggerExecutor,
@@ -16,7 +18,8 @@ export const executorRegistry: Record<NodeType, NodeExecutor> = {
     [NodeType.GEMINI]: geminiExecutor, 
     [NodeType.ANTHROPIC]: anthropicExecutor, //TODO: fix later
     [NodeType.OPENAI]: geminiExecutor,  //removed openai 
-    
+    [NodeType.DISCORD]: discordExecutor, 
+    [NodeType.SLACK]: slackExecutor,     
 
 };
 
