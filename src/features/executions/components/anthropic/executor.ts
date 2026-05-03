@@ -57,6 +57,7 @@ export const anthropicExecutor: NodeExecutor<AnthropicData> = async({
                 status: "error", 
             })
         );
+        
         throw new NonRetriableError("Anthropic node: Credential is required");
     } 
 
