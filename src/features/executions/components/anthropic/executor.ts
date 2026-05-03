@@ -142,7 +142,8 @@ export const anthropicExecutor: NodeExecutor<AnthropicData> = async({
         await publish(
         anthropicChannel().status({
             nodeId,
-            status: "success",
+            status: "error",
+            
         }),
     );
     throw error;

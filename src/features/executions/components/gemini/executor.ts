@@ -142,7 +142,7 @@ export const geminiExecutor: NodeExecutor<GeminiData> = async({
         await publish(
         geminiChannel().status({
             nodeId,
-            status: "success",
+            status: "error",
         }),
     );
     throw error;
