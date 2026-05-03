@@ -3,12 +3,12 @@
 import { boolean } from "zod";
 import {  useRemoveCredential, useSuspenseCredentials } from "../hooks/use-credentials"
 import { EmptyView, EntityContainer, EntityHeader, EntityItem, EntityList, EntityPagination, EntitySearch, ErrorView, LoadingView } from "@/components/entity-components";
-import { log } from "node:console";
 import { useRouter } from "next/navigation";
-import { useCredentialsParams } from "../hooks/use-credentials-parms";
+import { useCredentialsParams } from "../hooks/use-credentials-params";
 import { UseEntitySearch } from "@/hooks/use-entity-search";
 import React from "react";
-import { Credential, CredentialType } from "@/generated/prisma/client";
+import type { Credential} from "@/generated/prisma/browser";
+import { CredentialType } from "@/generated/prisma/enums";
 import { formatDistanceToNow } from "date-fns";
 import Image from "next/image";
 

@@ -79,7 +79,7 @@ interface CredentialFormProps {
     type: CredentialType;
     value: string;
   };
-}
+};
 
 // ------------------ Form Component ------------------
 export const CredentialForm = ({ initialData }: CredentialFormProps) => {
