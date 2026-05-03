@@ -9,13 +9,14 @@ datasource db {
 }
 
 model User {
-  id            String     @id
+  id            String       @id
   name          String
-  email         String     @unique
-  emailVerified Boolean    @default(false)
+  email         String       @unique
+  emailVerified Boolean      @default(false)
   image         String?
-  createdAt     DateTime   @default(now())
-  updatedAt     DateTime   @updatedAt
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  credentials   Credential[]
   workflows     Workflow[]
   accounts      Account[]
   sessions      Session[]
@@ -70,6 +71,18 @@ model Verification {
   @@map("verification")
 }
 
+model Credential {
+  id        String         @id @default(cuid())
+  name      String
+  value     String
+  type      CredentialType
+  createdAt DateTime       @default(now())
+  updatedAt DateTime       @updatedAt
+  userId    String
+  user      User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  Node      Node[]
+}
+
 model Workflow {
   id          String       @id @default(cuid())
   name        String
@@ -90,8 +103,10 @@ model Node {
   data              Json         @default("{}")
   createdAt         DateTime     @default(now())
   updatedAt         DateTime     @updatedAt
+  credentialId      String?
   outputConnections Connection[] @relation("FromNode")
   inputConnections  Connection[] @relation("ToNode")
+  credential        Credential?  @relation(fields: [credentialId], references: [id])
   workflow          Workflow     @relation(fields: [workflowId], references: [id], onDelete: Cascade)
 }
 
@@ -109,6 +124,12 @@ model Connection {
   workflow   Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
 
   @@unique([fromNodeId, fromOutput, toNodeId, toInput])
+}
+
+enum CredentialType {
+  OPENAI
+  ANTHROPIC
+  GEMINI
 }
 
 enum NodeType {

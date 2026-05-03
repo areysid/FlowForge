@@ -4,7 +4,7 @@ import {generateText } from "ai";
 import { createAnthropic } from "@ai-sdk/anthropic";
 import Handlebars from "handlebars";
 import { anthropicChannel } from "@/inngest/channels/anthropic";
-
+import prisma from "@/lib/db";
 
 Handlebars.registerHelper("json", (context)=> {
     const jsonString = JSON.stringify(context, null, 2);
@@ -20,6 +20,7 @@ type HttpRequestData ={
 
 type AnthropicData = {
     variableName?: string;
+    credentialId?: string;
     systemPrompt?: string;
     userPrompt?: string;   
 }
@@ -49,6 +50,17 @@ export const anthropicExecutor: NodeExecutor<AnthropicData> = async({
     throw new NonRetriableError("Anthropic node: Variable name is missing");
     } 
 
+     if(!data.credentialId) {
+            await publish(
+            anthropicChannel().status({
+                nodeId,
+                status: "error", 
+            })
+        );
+        
+        throw new NonRetriableError("Anthropic node: Credential is required");
+    } 
+
     if(!data.userPrompt) {
         await publish(
         anthropicChannel().status({
@@ -58,21 +70,28 @@ export const anthropicExecutor: NodeExecutor<AnthropicData> = async({
         );
         throw new NonRetriableError("Anthropic node: User name is missing");
     };
-
-    //TODO: Throw if credential is missing
     
     const systemPrompt = data.systemPrompt
     ? Handlebars.compile(data.systemPrompt)(context)
     : "You are a helpful assistant.";
 
     const userPrompt = Handlebars.compile(data.userPrompt)(context);
+    
+    const credential = await step.run("get-credential", () => {
+        return prisma.credential.findUnique({
+            where:{
+                id:data.credentialId,
+            },
+        });
+    });
 
-    //TODO: Fetch credentials that user selected 
+    if(!credential){
+        throw new NonRetriableError("Anthropic node: Credential not found");
+    }
 
-    const credentialValue = process.env.ANTHROPIC_API_KEY!
-
+    
     const anthropic = createAnthropic({
-        apiKey: credentialValue,
+        apiKey: credential.value,
 
     });
 
