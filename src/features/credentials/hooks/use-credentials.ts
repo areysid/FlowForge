@@ -2,7 +2,7 @@ import { useTRPC } from "@/trpc/client"
 import { useMutation, useMutationState, useQuery, useQueryClient, useSuspenseQuery } from "@tanstack/react-query";
 // import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { useCredentialsParams } from "./use-credentials-parms";
+import { useCredentialsParams } from "./use-credentials-params";
 import { CredentialType } from "@/generated/prisma/enums";
 
 //Hook to fetch all credentials 
