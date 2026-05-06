@@ -8,6 +8,8 @@ import { geminiExecutor } from "../components/gemini/executor";
 import { anthropicExecutor } from "../components/anthropic/executor";
 import { discordExecutor } from "../components/discord/executor";
 import { slackExecutor } from "../components/slack/executor";
+import { razorpayTriggerExecutor } from "@/features/triggers/components/razorpay-trigger/executor";
+
 
 export const executorRegistry: Record<NodeType, NodeExecutor> = {
     [NodeType.MANUAL_TRIGGER]: manualTriggerExecutor,
@@ -20,6 +22,7 @@ export const executorRegistry: Record<NodeType, NodeExecutor> = {
     [NodeType.OPENAI]: geminiExecutor,  //removed openai 
     [NodeType.DISCORD]: discordExecutor, 
     [NodeType.SLACK]: slackExecutor,     
+    [NodeType.RAZORPAY_TRIGGER]: razorpayTriggerExecutor,
 
 };
 

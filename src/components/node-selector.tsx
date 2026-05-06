@@ -35,6 +35,12 @@ const triggerNodes: NodeTypeOption[] = [
         description: "Runs the flow when a Stripe event is captured",
         icon: "/logos/stripe.svg",
     },
+    {
+        type: NodeType.RAZORPAY_TRIGGER,
+        label: "Razorpay Event",
+        description: "Runs the flow when a Razorpay payment event is captured",
+        icon: "/logos/razorpay.svg",
+    },
 ];
 
 const executionNodes: NodeTypeOption[] = [

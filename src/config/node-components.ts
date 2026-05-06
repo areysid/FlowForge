@@ -9,6 +9,8 @@ import { GeminiNode } from "@/features/executions/components/gemini/node";
 import { AnthropicNode } from "@/features/executions/components/anthropic/node";
 import { DiscordNode } from "@/features/executions/components/discord/node";
 import { SlackNode } from "@/features/executions/components/slack/node";
+import { RazorpayTriggerNode } from "@/features/triggers/components/razorpay-trigger/node";
+
 
 export const nodeComponents = {
     [NodeType.INITIAL]: InitialNode,
@@ -20,6 +22,7 @@ export const nodeComponents = {
     [NodeType.ANTHROPIC]: AnthropicNode,
     [NodeType.DISCORD]: DiscordNode,
     [NodeType.SLACK]: SlackNode,
+    [NodeType.RAZORPAY_TRIGGER]: RazorpayTriggerNode,
 } as const satisfies NodeTypes;
 
 export type RegisteredNodeType = keyof typeof nodeComponents;
