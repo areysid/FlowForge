@@ -3,7 +3,7 @@ import { useMutation, useMutationState, useQuery, useQueryClient, useSuspenseQue
 // import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 import { useCredentialsParams } from "./use-credentials-params";
-import { CredentialType } from "@/generated/prisma/enums";
+import { CredentialType } from "@/generated/prisma";
 
 //Hook to fetch all credentials 
 

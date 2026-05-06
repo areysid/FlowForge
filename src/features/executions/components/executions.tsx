@@ -5,8 +5,8 @@ import { useSuspenseExecutions } from "../hooks/use-executions"
 import { EmptyView, EntityContainer, EntityHeader, EntityItem, EntityList, EntityPagination, ErrorView, LoadingView } from "@/components/entity-components";
 import { useExecutionsParams } from "../hooks/use-executions-params";
 import React from "react";
-import type { Execution} from "@/generated/prisma/browser";
-import { ExecutionStatus } from "@/generated/prisma/enums";
+import type { Execution} from "@/generated/prisma";
+import { ExecutionStatus } from "@/generated/prisma";
 import { formatDistanceToNow } from "date-fns";
 import { CheckCircle2Icon, ClockIcon, Loader2Icon, XCircleIcon } from "lucide-react";
 
