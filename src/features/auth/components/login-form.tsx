@@ -32,6 +32,32 @@ export function LoginForm() {
         },
     })
 
+    const signInGithub = async()=>{
+        await authClient.signIn.social({
+            provider: "github",
+        }, {
+            onSuccess: ()=>{
+                router.push("/");
+            },
+            onError: ()=>{
+                toast.error("Something went wrong")
+            },
+        });
+    };
+
+    const signInGoogle = async()=>{
+        await authClient.signIn.social({
+            provider: "google",
+        }, {
+            onSuccess: ()=>{
+                router.push("/");
+            },
+            onError: ()=>{
+                toast.error("Something went wrong")
+            },
+        });
+    };
+
     const onSubmit = async (values: LoginFormValues) => {
         await authClient.signIn.email(
             {
@@ -70,11 +96,15 @@ export function LoginForm() {
                         <form onSubmit={form.handleSubmit(onSubmit)}>
                             <div className="grid gap-6">
                                 <div className="flex flex-col gap-4">
-                                    <Button variant="outline" className="w-full" type="button" disabled={isPending}>
+                                    <Button
+                                      onClick={signInGithub} 
+                                    variant="outline" className="w-full" type="button" disabled={isPending}>
                                         <Image alt="Git Hub" src="/logos/github.svg" width={20} height={20} />
                                         Continue with GitHub
                                     </Button>
-                                    <Button variant="outline" className="w-full" type="button" disabled={isPending}>
+                                    <Button
+                                    onClick={signInGoogle} 
+                                    variant="outline" className="w-full" type="button" disabled={isPending}>
                                          <Image alt="Google" src="/logos/google.svg" width={20} height={20} />
                                         Continue with Google
                                     </Button>
