@@ -1,7 +1,7 @@
 import type { NodeExecutor } from "@/features/executions/types";
 import { NonRetriableError } from "inngest";
 import {generateText } from "ai";
-import { createGoogleGenerativeAI } from "@ai-sdk/google";
+import { createOpenAI} from "@ai-sdk/openai";
 import Handlebars from "handlebars";
 import { openAiChannel } from "@/inngest/channels/openai";
 import prisma from "@/lib/db";
@@ -100,7 +100,7 @@ export const openAiExecutor: NodeExecutor<OpenAiData> = async({
     }
 
     
-    const google = createGoogleGenerativeAI({
+    const openai = createOpenAI({
         apiKey: decrypt(credential.value),
     });
 
