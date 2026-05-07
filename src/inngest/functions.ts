@@ -12,6 +12,7 @@ import { geminiChannel } from "./channels/gemini";
 import { anthropicChannel } from "./channels/anthropic";
 import { discordChannel } from "./channels/discord";
 import { slackChannel } from "./channels/slack";
+import { openAiChannel } from "./channels/openai";
 
 
 export const executeWorkflow = inngest.createFunction(
@@ -37,6 +38,7 @@ export const executeWorkflow = inngest.createFunction(
             googleFormTriggerChannel(),
             stripeTriggerChannel(), 
             geminiChannel(),
+            openAiChannel(),
             anthropicChannel(),
             discordChannel(),
             slackChannel(),

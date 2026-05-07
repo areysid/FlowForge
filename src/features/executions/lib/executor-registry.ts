@@ -9,6 +9,7 @@ import { anthropicExecutor } from "../components/anthropic/executor";
 import { discordExecutor } from "../components/discord/executor";
 import { slackExecutor } from "../components/slack/executor";
 import { razorpayTriggerExecutor } from "@/features/triggers/components/razorpay-trigger/executor";
+import { openAiExecutor } from "../components/openai/executor";
 
 
 export const executorRegistry: Record<NodeType, NodeExecutor> = {
@@ -19,7 +20,7 @@ export const executorRegistry: Record<NodeType, NodeExecutor> = {
     [NodeType.STRIPE_TRIGGER]: stripeTriggerExecutor,
     [NodeType.GEMINI]: geminiExecutor, 
     [NodeType.ANTHROPIC]: anthropicExecutor, //TODO: fix later
-    [NodeType.OPENAI]: geminiExecutor,  //removed openai 
+    [NodeType.OPENAI]: openAiExecutor,  //removed openai 
     [NodeType.DISCORD]: discordExecutor, 
     [NodeType.SLACK]: slackExecutor,     
     [NodeType.RAZORPAY_TRIGGER]: razorpayTriggerExecutor,
