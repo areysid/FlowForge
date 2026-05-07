@@ -1,6 +1,6 @@
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider      = "prisma-client-js"
+  output        = "../src/generated/prisma"
   binaryTargets = ["native", "rhel-openssl-3.0.x"]
 }
 
@@ -14,7 +14,7 @@ model User {
   name          String
   email         String       @unique
   emailVerified Boolean      @default(false)
-  image         String? 
+  image         String?
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
   credentials   Credential[]
@@ -91,7 +91,7 @@ model Workflow {
   updatedAt   DateTime     @updatedAt
   userId      String
   connections Connection[]
-  executions Execution[]
+  executions  Execution[]
   nodes       Node[]
   user        User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
@@ -128,6 +128,19 @@ model Connection {
   @@unique([fromNodeId, fromOutput, toNodeId, toInput])
 }
 
+model Execution {
+  id             String          @id @default(cuid())
+  workflowId     String
+  status         ExecutionStatus @default(RUNNING)
+  error          String?
+  errorStack     String?
+  startedAt      DateTime        @default(now())
+  completedAt    DateTime?
+  inngestEventId String          @unique
+  output         Json?
+  workflow       Workflow        @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+}
+
 enum CredentialType {
   OPENAI
   ANTHROPIC
@@ -140,37 +153,16 @@ enum NodeType {
   HTTP_REQUEST
   GOOGLE_FORM_TRIGGER
   STRIPE_TRIGGER
-  RAZORPAY_TRIGGER
   ANTHROPIC
   GEMINI
   OPENAI
   DISCORD
   SLACK
+  RAZORPAY_TRIGGER
 }
-
 
 enum ExecutionStatus {
   RUNNING
   SUCCESS
   FAILED
-}
-
-model Execution {
-  id String @id @default(cuid())
-
-  workflowId String
-  workflow Workflow @relation(fields: [workflowId], references: [id], onDelete: Cascade)
-
-  status ExecutionStatus @default(RUNNING)
-  error String? @db.Text
-  errorStack String? @db.Text
-
-  startedAt DateTime @default(now())
-  completedAt DateTime?
-
-  inngestEventId String @unique
-
-
-
-  output Json?
 }
